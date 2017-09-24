@@ -1,0 +1,15 @@
+@CHARSET "UTF-8";
+.login_m {
+	width: 400px;
+	height: 400px;
+	margin: 0 auto;
+	margin-top: 100px;
+	padding: 30px 40px 30px 40px;
+}
+input.txt_input {
+	width: 300px;
+	height: 40px;
+}
+input.txt_input2 {
+	margin: 10px;
+}

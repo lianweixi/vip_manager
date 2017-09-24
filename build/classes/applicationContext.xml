@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd" xmlns:tx="http://www.springframework.org/schema/tx">
+
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/vip?characterEncoding=utf-8"></property>
+		<property name="user" value="root"></property>
+		<property name="password" value="123456"></property>		
+	</bean>
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+			</props>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>com/lian/entity/Commodity.hbm.xml</value>
+				<value>com/lian/entity/Consume.hbm.xml</value>
+				<value>com/lian/entity/User.hbm.xml</value>
+				<value>com/lian/entity/Vip.hbm.xml</value>
+			</list>
+		</property>
+	</bean>
+	<!-- DAO -->
+	<bean id="userDao" class="com.lian.dao.UserDaoImpl">
+		<property name="sessionfactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="vipDao" class="com.lian.dao.VipDaoImpl">
+		<property name="sessionfactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="commodityDao" class="com.lian.dao.CommodityDaoImpl">
+		<property name="sessionfactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="consumeDao" class="com.lian.dao.ConsumeDaoImpl">
+		<property name="sessionfactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<!-- Service -->
+	<bean id="userService" class="com.lian.service.UserServiceImpl">
+		<property name="userDao" ref="userDao"></property>
+	</bean>
+	<bean id="commodityService" class="com.lian.service.CommodityServiceImpl">
+		<property name="commodityDao" ref="commodityDao"></property>
+	</bean>
+	<bean id="vipService" class="com.lian.service.VipServiceImpl">
+		<property name="vipDao" ref="vipDao"></property>
+		<property name="commodityDao" ref="commodityDao"></property>
+		<property name="consumeDao" ref="consumeDao"></property>
+	</bean>
+	<!-- Action -->
+	<bean id="systemAction" class="com.lian.controller.SystemAction">
+		<property name="userService" ref="userService"></property>
+	</bean>
+	<bean id="commodityAction" class="com.lian.controller.CommodityAction">
+		<property name="commodityService" ref="commodityService"></property>
+	</bean>
+	<bean id="vipAction" class="com.lian.controller.VipAction">
+		<property name="vipService" ref="vipService"></property>
+		<property name="commodityService" ref="commodityService"></property>
+	</bean>
+	
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<tx:annotation-driven transaction-manager="transactionManager" />
+</beans>

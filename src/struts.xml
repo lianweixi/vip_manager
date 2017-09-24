@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
+	<constant name="struts.serve.static.browserCache" value="false"></constant>
+	<constant name="struts.configuration.xml.reload" value="true"></constant>
+	<constant name="struts.devMode" value="true"></constant>
+	<constant name="struts.ui.theme" value="simple"></constant>
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	
+	<package name="user" extends="struts-default">
+		<action name="user_login" class="systemAction" method="login">
+			<result name="success">/main.jsp</result>
+			<result name="failure">/login.jsp</result>
+		</action>
+		<action name="user_logout" class="systemAction" method="logout">
+			<result name="success">/login.jsp</result>
+		</action>
+		<action name="user_get" class="systemAction" method="getUsers">
+			<result name="success">/user_manage.jsp</result>
+			<result name="failure">/user_manage.jsp</result>
+		</action>
+		<action name="user_add" class="systemAction" method="addUser">
+			<result name="success">/user_manage.jsp</result>
+			<result name="failure">/user_reg.jsp</result>
+		</action>
+		<action name="user_delete" class="systemAction" method="deleteUser">
+			<result name="success">/main.jsp</result>
+			<result name="failure">/login.jsp</result>
+		</action>
+		<action name="user_qualify_change" class="systemAction" method="changeQualify">
+			<result name="success">/user_manage.jsp</result>
+			<result name="failure">/user_manage.jsp</result>
+		</action>
+		
+		<action name="commodity_add" class="commodityAction" method="addCommodity">
+			<result name="success">/commodity_reg.jsp</result>
+			<result name="failure">/commodity_reg.jsp</result>
+		</action>
+		<action name="commodity_delete" class="commodityAction" method="deleteCommodity">
+			<result name="success">/commodity_query.jsp</result>
+			<result name="failure">/commodity_query.jsp</result>
+		</action>
+		<action name="commodity_change" class="commodityAction" method="changeCommodity">
+			<result name="success">/main.jsp</result>
+			<result name="failure">/login.jsp</result>
+		</action>
+		<action name="commodity_get" class="commodityAction" method="getAllCommodities">
+			<result name="success">/commodity_query.jsp</result>
+			<result name="failure">/commodity_query.jsp</result>
+		</action>
+		<action name="commodity_get_by_name" class="commodityAction" method="getCommodityByName">
+			<result name="success">/commodity_query.jsp</result>
+			<result name="failure">/commodity_query.jsp</result>
+		</action>
+		
+		<action name="vip_get" class="vipAction" method="getAllVip">
+			<result name="success">/vip_manage.jsp</result>
+			<result name="failure">/welcome.jsp</result>
+		</action>
+		<action name="vip_add" class="vipAction" method="addVip">
+			<result name="success">/vip_manage.jsp</result>
+			<result name="failure">/vip_manage.jsp</result>
+		</action>
+		<action name="vip_delete" class="vipAction" method="deleteVip">
+			<result name="success">/vip_manage.jsp</result>
+			<result name="failure">/vip_manage.jsp</result>
+		</action>
+		<action name="vip_consume_list" class="vipAction" method="getVipConsumeDetail">
+			<result name="success">/vip_query.jsp</result>
+			<result name="failure">/vip_query.jsp</result>
+		</action>
+		<action name="vip_consume" class="vipAction" method="openVipConsume">
+			<result name="success">/vip_consume.jsp</result>
+			<result name="failure">/vip_consume.jsp</result>
+		</action>
+		<action name="vip_consume_add" class="vipAction" method="addVipConsume">
+			<result name="success">/vip_consume.jsp</result>
+			<result name="failure">/vip_consume.jsp</result>
+		</action>
+	</package>
+</struts>

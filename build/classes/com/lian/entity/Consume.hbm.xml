@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.lian.entity.Consume" table="consume">
+		<id name="consumeId" type="integer">
+			<generator class="native"/>
+		</id>
+		<many-to-one name="vip" class="com.lian.entity.Vip" column="vipid" lazy="false"></many-to-one>
+		<many-to-one name="commodity" class="com.lian.entity.Commodity" column="commodityId" lazy="false"></many-to-one>
+	</class>
+</hibernate-mapping>
